@@ -1,0 +1,102 @@
+[
+  {
+    "id": "lua",
+    "name": "Lúa",
+    "aliases": ["lúa nước", "lúa tẻ", "lúa nếp", "lúa mùa"],
+    "water_needs": "Cao — cần ngập nước 5-10cm ở giai đoạn đẻ nhánh",
+    "fertilizer": "Bón lót: 10-15 tấn phân chuồng/ha. Bón thúc: NPK 20-20-15",
+    "season": ["Vụ đông xuân: tháng 11-12", "Vụ hè thu: tháng 4-5", "Vụ thu đông: tháng 7-8"],
+    "common_diseases": ["dao_on", "kho_van", "sau_duc_than", "ray_nau"],
+    "care_tips": "Kiểm tra mực nước hàng ngày. Làm cỏ sau khi cấy 15-20 ngày."
+  },
+  {
+    "id": "ca_chua",
+    "name": "Cà chua",
+    "aliases": ["cà chua bi", "cà chua beef", "tomato"],
+    "water_needs": "Trung bình — tưới 2 lần/ngày lúc trời mát",
+    "fertilizer": "NPK 15-15-15 giai đoạn sinh trưởng. Tăng kali khi ra hoa.",
+    "season": ["Trồng quanh năm ở miền Nam", "Miền Bắc: tháng 8-9 (vụ thu đông)"],
+    "common_diseases": ["mo_sai", "nam_cuong", "sau_duc_qua", "heo_xanh"],
+    "care_tips": "Cắm cọc chống đổ. Bấm ngọn sau khi có 5-6 chùm hoa."
+  },
+  {
+    "id": "bap",
+    "name": "Bắp (Ngô)",
+    "aliases": ["ngô", "bắp nếp", "bắp lai", "corn", "maize"],
+    "water_needs": "Trung bình — quan trọng nhất ở giai đoạn trổ cờ",
+    "fertilizer": "Bón lót đầy đủ, bón thúc ure 2-3 lần",
+    "season": ["Vụ xuân hè: tháng 2-3", "Vụ hè thu: tháng 4-5", "Vụ thu đông: tháng 8-9"],
+    "common_diseases": ["sau_duc_than_bap", "goi_den", "kho_la"],
+    "care_tips": "Tỉa cây kém phát triển, giữ khoảng cách 25-30cm giữa các cây."
+  },
+  {
+    "id": "rau_muong",
+    "name": "Rau muống",
+    "aliases": ["muống", "water spinach"],
+    "water_needs": "Cao — ưa ẩm, có thể trồng dưới nước",
+    "fertilizer": "Bón phân đạm (ure) mỗi 2 tuần sau thu hoạch",
+    "season": ["Quanh năm", "Tốt nhất mùa mưa"],
+    "common_diseases": ["ri_sat", "dom_la"],
+    "care_tips": "Thu hoạch khi cây cao 25-30cm. Để lại gốc 5cm để tái sinh."
+  },
+  {
+    "id": "dua_hau",
+    "name": "Dưa hấu",
+    "aliases": ["hấu", "watermelon"],
+    "water_needs": "Trung bình — giảm tưới giai đoạn chín để tăng độ ngọt",
+    "fertilizer": "Bón nhiều lân giai đoạn ra hoa, tăng kali khi quả lớn",
+    "season": ["Miền Nam: tháng 11-12 (vụ đông xuân)", "Miền Trung: tháng 1-2"],
+    "common_diseases": ["moc_suong", "phan_trang", "sau_du_dua"],
+    "care_tips": "Thụ phấn bổ sung bằng tay. Lót rơm dưới quả để tránh thối."
+  },
+  {
+    "id": "ca_phe",
+    "name": "Cà phê",
+    "aliases": ["coffee", "cà phê robusta", "cà phê arabica"],
+    "water_needs": "Tưới theo mùa: 400-500 lít/gốc mỗi lần, cách 25-30 ngày",
+    "fertilizer": "NPK chuyên dùng cà phê, bổ sung vi lượng bo, kẽm",
+    "season": ["Mùa khô: tưới nước kích thích ra hoa", "Thu hoạch: tháng 10-12"],
+    "common_diseases": ["gỉ sắt lá", "kho qua ca phe", "reu xanh"],
+    "care_tips": "Tỉa cành tạo tán sau thu hoạch. Phủ mulch giữ ẩm đất."
+  },
+  {
+    "id": "tieu",
+    "name": "Hồ tiêu",
+    "aliases": ["tiêu", "pepper", "tiêu đen"],
+    "water_needs": "Tưới đều đặn, không để ngập úng",
+    "fertilizer": "Phân hữu cơ + NPK cân đối, bổ sung canxi và magie",
+    "season": ["Trồng đầu mùa mưa", "Thu hoạch: tháng 2-4"],
+    "common_diseases": ["chet_nhanh", "rong_tieu", "sau_duc_than_tieu"],
+    "care_tips": "Trồng trụ sống (cây muồng) hoặc trụ bê tông. Che phủ gốc."
+  },
+  {
+    "id": "xoai",
+    "name": "Xoài",
+    "aliases": ["xoài cát", "mango", "xoài Hòa Lộc"],
+    "water_needs": "Giảm tưới 2 tháng trước khi xử lý ra hoa",
+    "fertilizer": "Bón sau thu hoạch và trước ra hoa. NPK + vi lượng.",
+    "season": ["Ra hoa: tháng 11-12", "Thu hoạch: tháng 3-5"],
+    "common_diseases": ["than_thu", "dom_la_xoai", "sau_duc_trai"],
+    "care_tips": "Phun thuốc kích thích ra hoa (paclobutrazol). Bao trái phòng sâu."
+  },
+  {
+    "id": "rau_cai",
+    "name": "Rau cải",
+    "aliases": ["cải xanh", "cải ngọt", "cải thảo", "cabbage"],
+    "water_needs": "Tưới 2 lần/ngày sáng và chiều",
+    "fertilizer": "Bón nhiều đạm, ít phân hóa học giai đoạn gần thu hoạch",
+    "season": ["Mùa khô (tháng 11-4)", "Tránh mùa mưa nặng"],
+    "common_diseases": ["bi_vang_la", "sau_to_bap_cai", "nom_xuong"],
+    "care_tips": "Thu hoạch trước khi ngồng hoa. Luân canh để tránh thoái hóa đất."
+  },
+  {
+    "id": "khoai_lang",
+    "name": "Khoai lang",
+    "aliases": ["khoai", "sweet potato"],
+    "water_needs": "Tưới đầy đủ giai đoạn đầu, giảm lúc tạo củ",
+    "fertilizer": "Bón nhiều kali để củ ngọt và chắc",
+    "season": ["Quanh năm", "Tốt nhất vụ đông xuân"],
+    "common_diseases": ["thoi_cu", "ro_la_khoai"],
+    "care_tips": "Lật dây 20-25 ngày/lần tránh ra rễ phụ. Thu hoạch sau 90-120 ngày."
+  }
+]

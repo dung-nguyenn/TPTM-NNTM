@@ -1,0 +1,137 @@
+[
+  {
+    "id": "dao_on",
+    "name": "Đạo ôn (Blast)",
+    "affects": ["lua"],
+    "symptoms": "Vết bệnh hình thoi màu nâu xám, có viền vàng trên lá. Cổ bông thối đen, hạt lép.",
+    "cause": "Nấm Magnaporthe oryzae",
+    "treatment": "Phun Tricyclazole, Isoprothiolane. Bón ít đạm, không để ruộng khô hạn.",
+    "prevention": "Dùng giống kháng bệnh. Bón phân cân đối. Phun phòng khi thời tiết ẩm mát."
+  },
+  {
+    "id": "kho_van",
+    "name": "Khô vằn (Sheath Blight)",
+    "affects": ["lua", "bap"],
+    "symptoms": "Vết bệnh hình bầu dục không đều màu nâu nhạt hoặc xám tro trên bẹ lá, lan dần lên.",
+    "cause": "Nấm Rhizoctonia solani",
+    "treatment": "Phun Validamycin, Hexaconazole. Rút nước phơi ruộng.",
+    "prevention": "Không trồng quá dày. Bón cân đối NPK, tránh thừa đạm."
+  },
+  {
+    "id": "ray_nau",
+    "name": "Rầy nâu (Brown Planthopper)",
+    "affects": ["lua"],
+    "symptoms": "Cây lúa bị cháy từ dưới lên (cháy rầy), lá vàng nâu, đổ rạp thành từng mảng.",
+    "cause": "Côn trùng Nilaparvata lugens",
+    "treatment": "Phun Imidacloprid, Thiamethoxam, Buprofezin. Rút nước phun thuốc hiệu quả hơn.",
+    "prevention": "Không trồng quá dày. Tắt đèn ban đêm. Bảo vệ thiên địch tự nhiên."
+  },
+  {
+    "id": "sau_duc_than",
+    "name": "Sâu đục thân lúa",
+    "affects": ["lua"],
+    "symptoms": "Nõn chết (dảnh chết héo) ở giai đoạn sinh trưởng. Hạt lép trắng ở giai đoạn trổ bông.",
+    "cause": "Côn trùng Scirpophaga incertulas",
+    "treatment": "Phun Chlorpyrifos, Cartap. Thu gom và tiêu hủy gốc rạ sau thu hoạch.",
+    "prevention": "Dùng bẫy đèn diệt ngài. Giữ vệ sinh ruộng đồng."
+  },
+  {
+    "id": "mo_sai",
+    "name": "Mốc sương cà chua (Late Blight)",
+    "affects": ["ca_chua"],
+    "symptoms": "Vết bệnh màu nâu đen không đều trên lá và quả. Thời tiết ẩm có lớp mốc trắng mặt dưới lá.",
+    "cause": "Nấm Phytophthora infestans",
+    "treatment": "Phun Mancozeb, Metalaxyl + Mancozeb. Cắt bỏ lá bị bệnh.",
+    "prevention": "Tránh tưới lên lá. Phun phòng khi thời tiết lạnh ẩm."
+  },
+  {
+    "id": "heo_xanh",
+    "name": "Héo xanh vi khuẩn",
+    "affects": ["ca_chua", "ca_phe"],
+    "symptoms": "Cây héo đột ngột nhưng lá vẫn xanh. Cắt thân thấy dịch nhầy trắng chảy ra.",
+    "cause": "Vi khuẩn Ralstonia solanacearum",
+    "treatment": "Chưa có thuốc đặc trị. Nhổ bỏ cây bệnh, vôi hóa đất.",
+    "prevention": "Luân canh với cây không cùng họ. Dùng giống kháng bệnh."
+  },
+  {
+    "id": "nam_cuong",
+    "name": "Nấm cuống cà chua (Damping-off)",
+    "affects": ["ca_chua"],
+    "symptoms": "Cây con bị thắt ở gốc, ngã rạp và chết hàng loạt.",
+    "cause": "Nấm Pythium, Rhizoctonia",
+    "treatment": "Phun Hymexazol, Metalaxyl vào gốc cây.",
+    "prevention": "Xử lý đất trước khi trồng. Thoát nước tốt. Không trồng quá dày."
+  },
+  {
+    "id": "gi_sat_ca_phe",
+    "name": "Gỉ sắt lá cà phê (Coffee Leaf Rust)",
+    "affects": ["ca_phe"],
+    "symptoms": "Vết bệnh vàng cam bột phấn mặt dưới lá. Lá rụng sớm, cây suy yếu.",
+    "cause": "Nấm Hemileia vastatrix",
+    "treatment": "Phun Triadimefon, Propiconazole. Tỉa bỏ cành che khuất.",
+    "prevention": "Tỉa tán thông thoáng. Bón phân cân đối, đủ kali."
+  },
+  {
+    "id": "chet_nhanh_tieu",
+    "name": "Chết nhanh hồ tiêu (Quick Wilt)",
+    "affects": ["tieu"],
+    "symptoms": "Lá vàng, héo và rụng nhanh. Rễ thối đen, cây chết trong vài ngày.",
+    "cause": "Nấm Phytophthora capsici",
+    "treatment": "Phun/tưới Metalaxyl, Fosetyl-Aluminium. Thoát nước ngay.",
+    "prevention": "Lên luống cao. Không để úng nước. Vệ sinh vườn."
+  },
+  {
+    "id": "than_thu_xoai",
+    "name": "Thán thư xoài (Mango Anthracnose)",
+    "affects": ["xoai"],
+    "symptoms": "Vết nâu đen trên lá non, bông, quả. Quả bị thối sau thu hoạch.",
+    "cause": "Nấm Colletotrichum gloeosporioides",
+    "treatment": "Phun Carbendazim, Thiophanate-methyl khi ra hoa và quả non.",
+    "prevention": "Tỉa tán thông thoáng. Thu gom và tiêu hủy tàn dư thực vật."
+  },
+  {
+    "id": "sau_duc_trai_xoai",
+    "name": "Sâu đục trái xoài",
+    "affects": ["xoai"],
+    "symptoms": "Trái non bị rụng hoặc có lỗ nhỏ trên bề mặt. Bên trong có sâu trắng.",
+    "cause": "Côn trùng Deanolis sublimbalis",
+    "treatment": "Phun Cypermethrin, Deltamethrin. Bao trái từ khi quả bằng ngón tay.",
+    "prevention": "Thu nhặt và tiêu hủy trái rụng. Vệ sinh vườn."
+  },
+  {
+    "id": "bi_vang_la",
+    "name": "Bệnh vàng lá (Yellowing)",
+    "affects": ["rau_cai", "ca_chua", "lua"],
+    "symptoms": "Lá chuyển vàng từ dưới lên, gân lá vẫn xanh hoặc vàng đều.",
+    "cause": "Thiếu dinh dưỡng (đạm, magie, sắt), úng nước, hoặc bệnh virút",
+    "treatment": "Bón bổ sung phân đạm hoặc magie sunfat. Cải thiện thoát nước.",
+    "prevention": "Bón phân cân đối theo giai đoạn sinh trưởng. Kiểm tra pH đất."
+  },
+  {
+    "id": "moc_suong_dua",
+    "name": "Mốc sương dưa hấu (Downy Mildew)",
+    "affects": ["dua_hau"],
+    "symptoms": "Vết vàng góc cạnh trên mặt lá, lớp mốc tím xám mặt dưới.",
+    "cause": "Nấm giả Pseudoperonospora cubensis",
+    "treatment": "Phun Cymoxanil + Mancozeb, Propamocarb.",
+    "prevention": "Tránh tưới lên lá. Luân canh. Chọn giống kháng."
+  },
+  {
+    "id": "phan_trang_dua",
+    "name": "Phấn trắng dưa hấu (Powdery Mildew)",
+    "affects": ["dua_hau"],
+    "symptoms": "Lớp bột trắng phủ mặt lá, lá cong queo vàng và rụng.",
+    "cause": "Nấm Sphaerotheca fuliginea",
+    "treatment": "Phun Sulfur, Myclobutanil, Triadimefon.",
+    "prevention": "Trồng mật độ hợp lý. Phun phòng định kỳ mùa khô."
+  },
+  {
+    "id": "thoi_cu_khoai",
+    "name": "Thối củ khoai lang",
+    "affects": ["khoai_lang"],
+    "symptoms": "Củ mềm nhũn, có mùi hôi, thối đen từ trong ra ngoài.",
+    "cause": "Nấm và vi khuẩn trong đất ẩm",
+    "treatment": "Không có thuốc đặc trị. Thu hoạch kịp thời, tránh làm xây xát củ.",
+    "prevention": "Thoát nước tốt. Thu hoạch đúng thời điểm. Không tưới quá nhiều."
+  }
+]

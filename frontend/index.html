@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DungNguyen Green AI - Chatbot AI hỗ trợ chăm sóc cây trồng, chẩn đoán bệnh và tư vấn nông nghiệp bằng tiếng Việt">
+    <meta name="keywords" content="chatbot nông nghiệp, chăm sóc cây trồng, chẩn đoán bệnh cây, AI nông nghiệp">
+    <title>DungNguyen Green AI 🌱 — Chatbot Chăm Sóc Cây Trồng AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-animation">
+        <div class="leaf leaf-1">🌿</div>
+        <div class="leaf leaf-2">🍃</div>
+        <div class="leaf leaf-3">🌱</div>
+        <div class="leaf leaf-4">🌿</div>
+        <div class="leaf leaf-5">🍃</div>
+    </div>
+
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <div class="logo-text">
+                        <h1>DungNguyen Green AI</h1>
+                        <span>Chuyên gia nông nghiệp AI</span>
+                    </div>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle" title="Đóng/mở sidebar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="sidebar-section">
+                <h3 class="section-title">⚡ Câu hỏi nhanh</h3>
+                <div class="quick-topics" id="quickTopics">
+                    <button class="topic-btn" data-query="Cách trồng cà chua tại nhà như thế nào?">
+                        🍅 Trồng cà chua
+                    </button>
+                    <button class="topic-btn" data-query="Lúa bị vàng lá phải xử lý như thế nào?">
+                        🌾 Lúa vàng lá
+                    </button>
+                    <button class="topic-btn" data-query="Cây bị sâu ăn lá - cách phòng trừ?">
+                        🐛 Phòng sâu bệnh
+                    </button>
+                    <button class="topic-btn" data-query="Cách bón phân cho rau cải đúng cách?">
+                        🌿 Bón phân rau cải
+                    </button>
+                    <button class="topic-btn" data-query="Mùa nào nên trồng dưa hấu?">
+                        🍉 Mùa vụ dưa hấu
+                    </button>
+                    <button class="topic-btn" data-query="Phòng bệnh đạo ôn cho lúa như thế nào?">
+                        🌱 Bệnh đạo ôn lúa
+                    </button>
+                    <button class="topic-btn" data-query="Cà phê bị gỉ sắt lá phải làm gì?">
+                        ☕ Gỉ sắt cà phê
+                    </button>
+                    <button class="topic-btn" data-query="Cách tưới nước cho xoài đúng cách?">
+                        🥭 Chăm sóc xoài
+                    </button>
+                </div>
+            </div>
+
+            <!-- Plant Info Display -->
+            <div class="sidebar-section" id="plantInfoSection" style="display:none;">
+                <h3 class="section-title">🌱 Cây đang tư vấn</h3>
+                <div class="plant-card" id="plantCard">
+                    <div class="plant-icon" id="plantIcon">🌿</div>
+                    <div class="plant-details" id="plantDetails"></div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="sidebar-section">
+                <h3 class="section-title">📊 Phiên làm việc</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="msgCount">0</span>
+                        <span class="stat-label">Tin nhắn</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="sessionTime">0:00</span>
+                        <span class="stat-label">Thời gian</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Chat Button -->
+            <div class="sidebar-footer">
+                <button class="new-chat-btn" id="newChatBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Cuộc trò chuyện mới
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CHAT AREA -->
+        <main class="chat-main">
+            <!-- Header -->
+            <header class="chat-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="header-info">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span class="header-title">DungNguyen Green AI</span>
+                    <span class="header-subtitle" id="headerSubtitle">Sẵn sàng tư vấn</span>
+                </div>
+                <div class="header-actions">
+                    <span class="model-badge">🤖 Groq LLaMA 3.3</span>
+                </div>
+            </header>
+
+            <!-- Messages Area -->
+            <div class="messages-container" id="messagesContainer">
+                <!-- Welcome Screen -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-animation">
+                        <div class="plant-3d">🌾</div>
+                    </div>
+                    <h2 class="welcome-title">Xin chào! Tôi là <span class="gradient-text">DungNguyen Green AI</span></h2>
+                    <p class="welcome-desc">Chuyên gia AI hỗ trợ chăm sóc cây trồng, chẩn đoán bệnh và tư vấn nông nghiệp cho bạn bằng tiếng Việt.</p>
+                    
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-icon">💧</div>
+                            <h4>Chăm sóc cây</h4>
+                            <p>Tưới nước, bón phân, cắt tỉa đúng kỹ thuật</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔬</div>
+                            <h4>Chẩn đoán bệnh</h4>
+                            <p>Nhận biết và xử lý sâu bệnh, nấm, vi khuẩn</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📸</div>
+                            <h4>Phân tích ảnh</h4>
+                            <p>Upload ảnh lá bệnh để AI chẩn đoán tức thì</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📅</div>
+                            <h4>Lịch mùa vụ</h4>
+                            <p>Tư vấn thời điểm trồng, thu hoạch tối ưu</p>
+                        </div>
+                    </div>
+
+                    <p class="welcome-hint">💬 Gõ câu hỏi hoặc chọn chủ đề ở bên trái để bắt đầu</p>
+                </div>
+
+                <!-- Messages will be inserted here -->
+                <div class="messages-list" id="messagesList"></div>
+            </div>
+
+            <!-- Image Preview -->
+            <div class="image-preview-container" id="imagePreviewContainer" style="display:none;">
+                <div class="image-preview-inner">
+                    <img id="imagePreview" src="" alt="Ảnh cây trồng được chọn">
+                    <button class="remove-image-btn" id="removeImageBtn" title="Xóa ảnh">✕</button>
+                    <span class="image-preview-label">📸 Sẵn sàng phân tích bệnh</span>
+                </div>
+            </div>
+
+            <!-- Suggestions Row -->
+            <div class="suggestions-row" id="suggestionsRow" style="display:none;">
+                <div class="suggestions-scroll" id="suggestionsScroll"></div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <!-- Upload Button -->
+                    <label class="upload-btn" for="imageInput" id="uploadLabel" title="Tải ảnh lá bệnh lên">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21,15 16,10 5,21"></polyline>
+                        </svg>
+                    </label>
+                    <input type="file" id="imageInput" accept="image/*" style="display:none;">
+                    
+                    <!-- Text Input -->
+                    <div class="text-input-wrapper">
+                        <textarea 
+                            id="messageInput" 
+                            placeholder="Hỏi về cách chăm sóc cây, chẩn đoán bệnh... (Enter để gửi, Shift+Enter xuống dòng)"
+                            rows="1"
+                            maxlength="2000"
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Send Button -->
+                    <button class="send-btn" id="sendBtn" disabled title="Gửi tin nhắn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="char-count" id="charCount">0/2000</span>
+                    <span class="input-hint">DungNguyen Green AI có thể mắc lỗi. Hãy tham khảo thêm chuyên gia địa phương.</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="chat_ui.js"></script>
+</body>
+</html>
