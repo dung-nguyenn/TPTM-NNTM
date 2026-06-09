@@ -1,0 +1,16 @@
+{
+  "name": "AgriBot - Chuyên Gia Nông Nghiệp AI",
+  "short_name": "AgriBot",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fcfdfc",
+  "theme_color": "#49745d",
+  "description": "Chatbot AI hỗ trợ chăm sóc cây trồng, chẩn đoán bệnh và tư vấn nông nghiệp bằng tiếng Việt",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/628/628283.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

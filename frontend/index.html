@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <!-- Animated background -->
@@ -39,6 +40,56 @@
                         <line x1="3" y1="18" x2="21" y2="18"></line>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Search & Recent Chats -->
+            <div class="sidebar-section">
+                <h3 class="section-title">💬 Cuộc trò chuyện gần đây</h3>
+                <div class="search-container">
+                    <input type="text" id="historySearch" class="history-search-input" placeholder="🔍 Tìm lịch sử...">
+                </div>
+                <div class="recent-chats-list" id="recentChatsList">
+                    <!-- Dynamic sessions list -->
+                </div>
+            </div>
+
+            <!-- Farmer Profile Configuration -->
+            <div class="sidebar-section">
+                <h3 class="section-title">👤 Hồ sơ nông hộ</h3>
+                <div class="farmer-profile-form">
+                    <input type="text" id="farmerName" placeholder="Tên anh/chị (Ví dụ: Anh Ba)">
+                    <input type="text" id="farmerCrop" placeholder="Cây trồng chính (Ví dụ: Lúa)">
+                    <button class="save-profile-btn" id="saveProfileBtn">💾 Lưu hồ sơ</button>
+                </div>
+            </div>
+
+            <!-- Weather Adaptive Widget -->
+            <div class="sidebar-section">
+                <h3 class="section-title">🌦️ Thời tiết nông nghiệp</h3>
+                <div class="weather-widget">
+                    <select id="weatherRegion" class="weather-select">
+                        <option value="Đồng bằng sông Cửu Long">🌾 ĐB Sông Cửu Long</option>
+                        <option value="Tây Nguyên">☕ Tây Nguyên</option>
+                        <option value="Đồng bằng sông Hồng">🌾 ĐB Sông Hồng</option>
+                        <option value="Bắc Trung Bộ">🌱 Bắc Trung Bộ</option>
+                        <option value="Tây Bắc Bộ">🥬 Tây Bắc Bộ</option>
+                    </select>
+                    <div class="weather-info-card">
+                        <span class="weather-temp" id="weatherTemp">31°C</span>
+                        <span class="weather-status" id="weatherStatus">🌧️ Mưa ẩm kéo dài</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Agricultural Features -->
+            <div class="sidebar-section">
+                <h3 class="section-title">⚙️ Tiện ích nâng cao</h3>
+                <div class="advanced-tools-grid">
+                    <button class="tool-action-btn" id="btnOpenCalendar">📅 Lịch mùa vụ 2026</button>
+                    <button class="tool-action-btn" id="btnOpenMap">🗺️ Bản đồ dịch bệnh</button>
+                    <button class="tool-action-btn" id="btnOpenDashboard">📊 Báo cáo & Thống kê</button>
+                    <button class="tool-action-btn" id="btnOpenExpert">🤝 Liên hệ Chuyên gia</button>
+                </div>
             </div>
 
             <!-- Quick Actions -->
@@ -125,6 +176,12 @@
                     <span class="header-subtitle" id="headerSubtitle">Sẵn sàng tư vấn</span>
                 </div>
                 <div class="header-actions">
+                    <button class="export-btn" id="exportChatBtn" title="Xuất hội thoại ra file Markdown">📥 Xuất cuộc gọi</button>
+                    <select id="langSelector" class="lang-selector">
+                        <option value="vi">🇻🇳 Tiếng Việt</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="ede">🌾 Tiếng Ê-đê</option>
+                    </select>
                     <span class="model-badge">🤖 Groq LLaMA 3.3</span>
                 </div>
             </header>
@@ -224,6 +281,135 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
+    <!-- MODALS & OVERLAYS -->
+    <!-- 1. Cropping Calendar Modal -->
+    <div class="modal-overlay" id="calendarModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📅 Lịch Canh Tác & Mùa Vụ Thông Minh 2026</h2>
+                <button class="close-modal" onclick="document.getElementById('calendarModal').classList.remove('active')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="calendar-tabs">
+                    <button class="cal-tab-btn active" onclick="switchCalendarTab('nam', this)">Nam Bộ 🌾</button>
+                    <button class="cal-tab-btn" onclick="switchCalendarTab('trung', this)">Trung Bộ / Tây Nguyên ☕</button>
+                    <button class="cal-tab-btn" onclick="switchCalendarTab('bac', this)">Bắc Bộ 🥬</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Dynamic Content in JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Epidemic Map Modal -->
+    <div class="modal-overlay" id="mapModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🗺️ Bản Đồ Cảnh Báo Dịch Bệnh Cây Trồng</h2>
+                <button class="close-modal" onclick="document.getElementById('mapModal').classList.remove('active')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="map-container">
+                    <div class="map-svg-wrapper">
+                        <svg viewBox="0 0 400 800" class="vietnam-map">
+                            <rect width="100%" height="100%" fill="#f4f8f6" rx="16"></rect>
+                            
+                            <!-- Bắc Bộ -->
+                            <circle cx="170" cy="180" r="50" class="region-alert high" onclick="showMapAlert('bac')"></circle>
+                            <text x="170" y="185" text-anchor="middle" class="map-label" onclick="showMapAlert('bac')">Bắc Bộ</text>
+                            
+                            <!-- Trung Bộ -->
+                            <circle cx="210" cy="400" r="45" class="region-alert medium" onclick="showMapAlert('trung')"></circle>
+                            <text x="210" y="405" text-anchor="middle" class="map-label" onclick="showMapAlert('trung')">Miền Trung / Tây Nguyên</text>
+                            
+                            <!-- Nam Bộ -->
+                            <circle cx="160" cy="620" r="55" class="region-alert high" onclick="showMapAlert('nam')"></circle>
+                            <text x="160" y="625" text-anchor="middle" class="map-label" onclick="showMapAlert('nam')">Nam Bộ</text>
+                        </svg>
+                    </div>
+                    <div class="map-alert-details" id="mapAlertDetails">
+                        <h3>🔴 Cảnh báo vùng dịch bệnh</h3>
+                        <p>Nhấp vào các vòng tròn màu cam/đỏ trên bản đồ để xem chi tiết cảnh báo phòng ngừa của từng vùng miền!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Dashboard Modal -->
+    <div class="modal-overlay" id="dashboardModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📊 Bảng Báo Cáo Phân Tích & Thống Kê Phiên</h2>
+                <button class="close-modal" onclick="document.getElementById('dashboardModal').classList.remove('active')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>📈 Thống kê cuộc gọi</h3>
+                        <div class="dash-stat">Tổng tin nhắn: <strong id="dashTotalMsgs">0</strong></div>
+                        <div class="dash-stat">Thời gian phiên: <strong id="dashAvgTime">0:00</strong></div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>🌱 Cây được tư vấn nhiều nhất</h3>
+                        <div class="bar-chart" id="dashCropsChart">
+                            <!-- JS will render statistics bars here -->
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>👍 Mức độ hài lòng</h3>
+                        <div class="satisfaction-gauge">
+                            <div class="gauge-value" id="dashSatisfiedRate">100%</div>
+                            <span>Tỉ lệ đánh giá tích cực</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Expert Form Modal -->
+    <div class="modal-overlay" id="expertModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🤝 Liên Hệ Chuyên Gia Nông Nghiệp Việt Nam</h2>
+                <button class="close-modal" onclick="document.getElementById('expertModal').classList.remove('active')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="expert-form" id="expertConsultForm" onsubmit="submitExpertForm(event)">
+                    <div class="form-group">
+                        <label>Họ và tên nông hộ:</label>
+                        <input type="text" id="expName" required placeholder="Anh/chị Nguyễn Văn A">
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại / Zalo:</label>
+                        <input type="tel" id="expPhone" required placeholder="09xxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Cây trồng cần tư vấn:</label>
+                        <input type="text" id="expCrop" required placeholder="Lúa nước, Cà phê, Sầu riêng...">
+                    </div>
+                    <div class="form-group">
+                        <label>Mô tả sâu bệnh hoặc thắc mắc canh tác:</label>
+                        <textarea id="expMessage" rows="4" required placeholder="Cây xuất hiện đốm lá vàng nhạt sau mùa ẩm..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-form-btn">🚀 Gửi yêu cầu đến Trung tâm Khuyến nông</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="chat_ui.js"></script>
+    <script>
+        // Register PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('PWA Service Worker registered!', reg))
+                    .catch(err => console.log('Service Worker failed:', err));
+            });
+        }
+    </script>
 </body>
 </html>

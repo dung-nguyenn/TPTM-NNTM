@@ -43,6 +43,12 @@ def init_db():
         )
     """)
     
+    # Thêm cột rating nếu chưa có
+    try:
+        cursor.execute("ALTER TABLE messages ADD COLUMN rating INTEGER DEFAULT 0")
+    except sqlite3.OperationalError:
+        pass
+    
     conn.commit()
     conn.close()
     print("✅ Database initialized successfully")
@@ -96,23 +102,26 @@ def update_session_context(session_id: str, context: dict):
     conn.close()
 
 
-def save_message(session_id: str, role: str, content: str, has_image: bool = False):
+def save_message(session_id: str, role: str, content: str, has_image: bool = False) -> int:
     """Lưu tin nhắn vào database."""
     now = datetime.utcnow().isoformat()
     conn = get_db_connection()
-    conn.execute(
+    cursor = conn.cursor()
+    cursor.execute(
         "INSERT INTO messages (session_id, role, content, timestamp, has_image) VALUES (?, ?, ?, ?, ?)",
         (session_id, role, content, now, 1 if has_image else 0)
     )
+    message_id = cursor.lastrowid
     conn.commit()
     conn.close()
+    return message_id
 
 
 def get_conversation_history(session_id: str, limit: int = 20) -> list:
     """Lấy lịch sử hội thoại của session (giới hạn số tin nhắn)."""
     conn = get_db_connection()
     rows = conn.execute(
-        """SELECT role, content, timestamp FROM messages 
+        """SELECT id, role, content, timestamp, rating FROM messages 
            WHERE session_id = ? 
            ORDER BY id DESC LIMIT ?""",
         (session_id, limit)
@@ -120,8 +129,28 @@ def get_conversation_history(session_id: str, limit: int = 20) -> list:
     conn.close()
     
     # Đảo ngược để có thứ tự thời gian đúng
-    messages = [{"role": row["role"], "content": row["content"]} for row in reversed(rows)]
+    messages = []
+    for row in reversed(rows):
+        msg = {
+            "id": row["id"],
+            "role": row["role"],
+            "content": row["content"]
+        }
+        # Thêm rating nếu có
+        try:
+            msg["rating"] = row["rating"]
+        except Exception:
+            msg["rating"] = 0
+        messages.append(msg)
     return messages
+
+
+def update_message_rating(message_id: int, rating: int):
+    """Cập nhật đánh giá của tin nhắn."""
+    conn = get_db_connection()
+    conn.execute("UPDATE messages SET rating = ? WHERE id = ?", (rating, message_id))
+    conn.commit()
+    conn.close()
 
 
 def get_all_sessions() -> list:

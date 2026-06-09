@@ -76,16 +76,18 @@ def build_context_from_data(detected_crop: dict = None, diseases: list = None) -
     return "\n".join(context_parts) if context_parts else ""
 
 
-def build_prompt(user_message: str, conversation_context: dict = None) -> tuple[list, str]:
+def build_prompt(user_message: str, conversation_context: dict = None, weather_info: str = "", profile_info: dict = None) -> tuple[str, str]:
     """
     Xây dựng prompt hoàn chỉnh từ tin nhắn người dùng.
     
     Args:
         user_message: Tin nhắn của người dùng
         conversation_context: Ngữ cảnh cuộc hội thoại hiện tại
+        weather_info: Thông tin thời tiết hiện tại
+        profile_info: Hồ sơ nông dân hiện tại
     
     Returns:
-        Tuple (messages_list, detected_crop_id)
+        Tuple (system_addon, detected_crop_id)
     """
     crops, diseases = load_data()
     
@@ -106,6 +108,30 @@ def build_prompt(user_message: str, conversation_context: dict = None) -> tuple[
     if data_context:
         system_addon = f"\n\n## DỮ LIỆU THAM KHẢO TỪ HỆ THỐNG\n{data_context}"
     
+    # Thêm thông tin thời tiết
+    if weather_info:
+        system_addon += f"\n\n## THÔNG TIN THỜI TIẾT HIỆN TẠI VÙNG CANH TÁC\n{weather_info}\n*Chú ý: Hãy đưa ra lời khuyên thực tế, liên hệ chặt chẽ với tình hình thời tiết ẩm/nóng/mưa này để tư vấn sát sao.*"
+        
+    # Thêm thông tin hồ sơ nông dân
+    if profile_info and isinstance(profile_info, dict):
+        farmer_name = profile_info.get("name", "")
+        farmer_region = profile_info.get("region", "")
+        farmer_crop = profile_info.get("primary_crop", "")
+        farmer_area = profile_info.get("area", "")
+        
+        profile_parts = []
+        if farmer_name:
+            profile_parts.append(f"- Tên nông dân: {farmer_name} (Xưng hô thân thiện, ví dụ: 'Chào anh {farmer_name}' hoặc 'bác {farmer_name}')")
+        if farmer_region:
+            profile_parts.append(f"- Khu vực canh tác: {farmer_region}")
+        if farmer_crop:
+            profile_parts.append(f"- Loại cây trồng chủ yếu: {farmer_crop}")
+        if farmer_area:
+            profile_parts.append(f"- Diện tích: {farmer_area}")
+            
+        if profile_parts:
+            system_addon += f"\n\n## THÔNG TIN NGƯỜI DÙNG (NÔNG HỘ)\n" + "\n".join(profile_parts) + "\n*Chú ý: Tối ưu lời khuyên phù hợp với quy mô và đặc thù địa phương này.*"
+            
     detected_crop_id = detected_crop["id"] if detected_crop else None
     return system_addon, detected_crop_id
 

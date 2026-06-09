@@ -26,7 +26,7 @@ def create_new_session():
 def chat():
     """
     Endpoint chat chính.
-    Body: { "session_id": "...", "message": "..." }
+    Body: { "session_id": "...", "message": "...", "weather": "...", "profile": {...} }
     """
     data = request.get_json()
     
@@ -35,6 +35,8 @@ def chat():
     
     session_id = data.get("session_id", "")
     user_message = sanitize_input(data.get("message", ""))
+    weather_info = data.get("weather", "")
+    profile_info = data.get("profile", {})
     
     if not user_message:
         return jsonify({"error": "Tin nhắn không được để trống"}), 400
@@ -47,16 +49,17 @@ def chat():
     history = get_conversation_history(session_id, limit=10)
     context = get_session_context(session_id)
     
-    # Xây dựng prompt với context từ dữ liệu
-    system_addon, detected_crop_id = build_prompt(user_message, context)
+    # Xây dựng prompt với context từ dữ liệu + thời tiết + thông tin cá nhân
+    system_addon, detected_crop_id = build_prompt(user_message, context, weather_info, profile_info)
     
     # Cập nhật context nếu phát hiện cây mới
     if detected_crop_id:
         context["current_crop"] = detected_crop_id
         update_session_context(session_id, context)
     
-    # Xây dựng danh sách messages
-    messages = history + [{"role": "user", "content": user_message}]
+    # Xây dựng danh sách messages (chỉ gửi role và content cho AI)
+    ai_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
+    messages = ai_history + [{"role": "user", "content": user_message}]
     
     # Lấy system prompt + addon
     base_system = load_system_prompt()
@@ -65,9 +68,9 @@ def chat():
     # Gọi AI
     ai_response = chat_with_groq(messages, system_prompt=full_system)
     
-    # Lưu vào database
-    save_message(session_id, "user", user_message)
-    save_message(session_id, "assistant", ai_response)
+    # Lưu vào database và lấy message_id
+    user_msg_id = save_message(session_id, "user", user_message)
+    assistant_msg_id = save_message(session_id, "assistant", ai_response)
     
     # Gợi ý câu hỏi tiếp theo
     suggestions = get_quick_suggestions(context)
@@ -76,7 +79,9 @@ def chat():
         "session_id": session_id,
         "response": ai_response,
         "suggestions": suggestions,
-        "detected_crop": detected_crop_id
+        "detected_crop": detected_crop_id,
+        "user_message_id": user_msg_id,
+        "assistant_message_id": assistant_msg_id
     })
 
 
@@ -109,21 +114,56 @@ def chat_with_image_endpoint():
     
     # Lấy lịch sử hội thoại
     history = get_conversation_history(session_id, limit=5)
-    messages = history + [{"role": "user", "content": user_message or "Phân tích bệnh trong ảnh này"}]
+    ai_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
+    messages = ai_history + [{"role": "user", "content": user_message or "Phân tích bệnh trong ảnh này"}]
     
     # Gọi AI với ảnh
     ai_response = chat_with_image(messages, image_base64, image_file.mimetype)
     
     # Lưu vào database
     msg_content = f"[Ảnh được gửi]{': ' + user_message if user_message else ''}"
-    save_message(session_id, "user", msg_content, has_image=True)
-    save_message(session_id, "assistant", ai_response)
+    user_msg_id = save_message(session_id, "user", msg_content, has_image=True)
+    assistant_msg_id = save_message(session_id, "assistant", ai_response)
     
     return jsonify({
         "session_id": session_id,
         "response": ai_response,
-        "suggestions": get_quick_suggestions()
+        "suggestions": get_quick_suggestions(),
+        "user_message_id": user_msg_id,
+        "assistant_message_id": assistant_msg_id
     })
+
+
+@chat_bp.route("/api/sessions", methods=["GET"])
+def get_sessions_list():
+    """Lấy danh sách tất cả sessions."""
+    from backend.database.db import get_all_sessions
+    try:
+        sessions = get_all_sessions()
+        return jsonify({"sessions": sessions})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@chat_bp.route("/api/message/rate", methods=["POST"])
+def rate_message():
+    """Đánh giá tin nhắn 👍/👎."""
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Không có dữ liệu"}), 400
+    
+    message_id = data.get("message_id")
+    rating = data.get("rating")  # 1: thích, -1: ghét, 0: không đánh giá
+    
+    if message_id is None or rating is None:
+        return jsonify({"error": "Thiếu message_id hoặc rating"}), 400
+    
+    from backend.database.db import update_message_rating
+    try:
+        update_message_rating(int(message_id), int(rating))
+        return jsonify({"status": "success", "message": "Đã lưu đánh giá"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @chat_bp.route("/api/history", methods=["GET"])
